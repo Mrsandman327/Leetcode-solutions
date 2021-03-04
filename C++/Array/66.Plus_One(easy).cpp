@@ -7,19 +7,18 @@ public:
     3. 将结果数组反转；
     */
     vector<int> plusOne(vector<int>& digits) {
-        reverse(digits.begin(), digits.end());
-        int flag = 1;
-        for(int i=0; i<digits.size(); i++){
-            if((digits[i] + flag) >= 10){
-                digits[i] = (digits[i] + flag) % 10;
-            }
-            else{
-                digits[i] = digits[i] + flag;
-                flag = 0;
-            }
+        int sz = digits.size();
+        int carry = 1;//进位，初试值模拟个位进1
+        for (int i = sz-1; i >= 0; --i)
+        {
+            digits[i] += carry;
+            carry = digits[i] / 10;
+            digits[i] %= 10;
+            if(carry==0)
+                break;
+            if(i==0)
+                digits.insert(digits.begin(),carry);
         }
-        if(flag==1) digits.push_back(1);
-        reverse(digits.begin(), digits.end());
         return digits;
     }
 };
